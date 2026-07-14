@@ -107,14 +107,26 @@ a {
     opacity: 1;
 }
 
-/* Auto-growing textarea (overrides main.css fixed height) */
-._textarea_auto {
+/* Auto-growing textarea (overrides main.css fixed height !important rules) */
+textarea._textarea_auto,
+._comment_textarea._textarea_auto,
+._feed_inner_text_area_box_form textarea._textarea_auto {
     height: auto !important;
     min-height: 40px;
     max-height: 160px;
     overflow-y: auto;
+    overflow-x: hidden;
     resize: none;
     field-sizing: content;
+    box-sizing: border-box;
+}
+
+._feed_inner_comment_box_content:has(textarea._textarea_auto) {
+    align-items: flex-start;
+}
+
+._feed_inner_comment_box_content_txt:has(textarea._textarea_auto) {
+    height: auto;
 }
 
 /* Profile settings modal */
@@ -699,7 +711,9 @@ button._feed_timeline_dropdown_link:disabled {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.15s ease, opacity 0.15s ease;
+    transition:
+        background 0.15s ease,
+        opacity 0.15s ease;
 }
 
 ._feed_load_more_btn:hover:not(:disabled) {
@@ -709,4 +723,8 @@ button._feed_timeline_dropdown_link:disabled {
 ._feed_load_more_btn:disabled {
     cursor: not-allowed;
     opacity: 0.65;
+}
+
+._react_img1 {
+    min-width: 32px;
 }

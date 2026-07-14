@@ -34,6 +34,7 @@ Install these before continuing:
 |------|-----------------|
 | **Node.js** | 20+ recommended (18+ minimum) |
 | **Yarn** | Classic v1 (`yarn -v` → `1.x`). This repo ships a `yarn.lock`. |
+| **TypeScript** | Pinned to **5.9.x** in `package.json`. Next.js 16.2 does not yet support TypeScript 7 for `next build` (missing JS compiler API). |
 | **PostgreSQL** | Local install **or** a hosted instance (Neon, Supabase, Prisma Postgres, Railway, etc.) |
 | **Cloudflare account** | For R2 object storage (avatars & post images) |
 | **Git** | To clone the repository |

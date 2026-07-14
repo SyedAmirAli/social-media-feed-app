@@ -5,7 +5,7 @@ import { FormEvent, Fragment, KeyboardEvent, useEffect, useRef, useState } from 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { formatDistanceToNowStrict } from "date-fns";
-import { HeartIcon, SendPostIcon, ThumbsUpIcon } from "@/app/assets/icons";
+import { CommentMicIcon, CommentPhotoIcon, HeartIcon, SendPostIcon, ThumbsUpIcon } from "@/app/assets/icons";
 import AutoTextarea from "@/components/ui/AutoTextarea";
 import ReactorsModal from "@/components/ui/ReactorsModal";
 import { asset } from "@/config/utils";
@@ -174,7 +174,10 @@ export default function CommentItem({ comment, postId, currentUser }: CommentIte
 
     return (
         <Fragment>
-            <div className={`_timline_comment_main${isNested ? " _timline_comment_nested" : ""}`}>
+            <div
+                className={`_timline_comment_main${isNested ? " _timline_comment_nested" : ""}`}
+                style={{ padding: "0 24px" }}
+            >
                 <div className="_comment_main">
                     <div className="_comment_image">
                         <span className="_comment_image_link">
@@ -294,6 +297,12 @@ export default function CommentItem({ comment, postId, currentUser }: CommentIte
                                         </div>
                                     </div>
                                     <div className="_feed_inner_comment_box_icon mb-1">
+                                        <button type="button" className="_feed_inner_comment_box_icon_btn" disabled>
+                                            <CommentPhotoIcon />
+                                        </button>
+                                        <button type="button" className="_feed_inner_comment_box_icon_btn" disabled>
+                                            <CommentMicIcon />
+                                        </button>
                                         <button
                                             type="button"
                                             className="_feed_inner_comment_box_icon_btn _submit_btn"

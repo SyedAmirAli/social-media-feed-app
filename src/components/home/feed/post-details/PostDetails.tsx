@@ -14,6 +14,7 @@ import {
     NotificationBellIcon,
     PostMenuDotsIcon,
     SavePostIcon,
+    SendPostIcon,
     ShareReactionIcon,
     ThumbsUpIcon,
 } from "@/app/assets/icons";
@@ -361,12 +362,16 @@ export default function PostDetails({ post }: { post: Post }) {
                 </button>
             </div>
 
-            <div className="_feed_inner_timeline_cooment_area">
+            <div className="_feed_inner_timeline_cooment_area" style={{ padding: "10px 24px" }}>
                 <div className="_feed_inner_comment_box">
-                    <form className="_feed_inner_comment_box_form" onSubmit={submitComment}>
-                        <div className="_feed_inner_comment_box_content">
+                    <form
+                        className="_feed_inner_comment_box_form"
+                        onSubmit={submitComment}
+                        style={{ justifyContent: "space-between", alignItems: "end" }}
+                    >
+                        <div className="_feed_inner_comment_box_content" style={{ alignItems: "start" }}>
                             <div className="_feed_inner_comment_box_content_image">
-                                <img src={asset(user?.avatar)} alt="" className="_comment_img" />
+                                <img src={asset(user?.avatar)} alt="User" className="_comment_img" />
                             </div>
                             <div className="_feed_inner_comment_box_content_txt">
                                 <AutoTextarea
@@ -380,20 +385,22 @@ export default function PostDetails({ post }: { post: Post }) {
                                 />
                             </div>
                         </div>
-                        <div className="_feed_inner_comment_box_icon">
+                        <div className="_feed_inner_comment_box_icon mb-1">
+                            <button type="button" className="_feed_inner_comment_box_icon_btn" disabled>
+                                <CommentPhotoIcon />
+                            </button>
                             <button type="button" className="_feed_inner_comment_box_icon_btn" disabled>
                                 <CommentMicIcon />
                             </button>
-                            {commentText.trim() ? (
-                                <button
-                                    type="submit"
-                                    className="_feed_inner_comment_box_icon_btn"
-                                    disabled={commentMutation.isPending}
-                                    aria-label="Submit comment"
-                                >
-                                    <CommentPhotoIcon />
-                                </button>
-                            ) : null}
+                            <button
+                                type="button"
+                                className="_feed_inner_comment_box_icon_btn _submit_btn"
+                                disabled={commentMutation.isPending || !commentText.trim()}
+                                onClick={submitComment}
+                                aria-label="Submit comment"
+                            >
+                                <SendPostIcon stroke="currentColor" width={16} height={16} />
+                            </button>
                         </div>
                     </form>
                 </div>
