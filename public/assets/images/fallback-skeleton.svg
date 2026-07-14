@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Placeholder">
+  <rect width="120" height="120" fill="#E8EEF5"/>
+  <rect x="0" y="0" width="120" height="120" fill="url(#shimmer)"/>
+  <circle cx="60" cy="46" r="22" fill="#D0DBE8"/>
+  <ellipse cx="60" cy="104" rx="38" ry="28" fill="#D0DBE8"/>
+  <defs>
+    <linearGradient id="shimmer" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5F8FC" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#E8EEF5" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#F5F8FC" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Starter models — replace with your own
+model User {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  email     String   @unique
+  name      String?
+  password  String
+  avatar    String?
+
+  // relations
+  posts    Post[]
+  reacts   React[]    @relation("UserReacts")
+  comments Comment[] @relation("CommentAuthor")
+
+  repliedTos Comment[] @relation("CommentRepliedTos")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+}
+
+model Post {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  content   String
+  image     String?
+  status    PostStatus @default(PUBLIC)
+  slug      String?   @unique
+
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String   @db.Uuid
+  
+  // timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // relations — Post.reacts ↔ React where React.postId = Post.id
+  reacts   React[] @relation("PostReacts")
+  comments Comment[]
+
+  @@index([authorId])
+}
+
+model Comment {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  content   String
+  
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String   @db.Uuid
+
+  author    User     @relation("CommentAuthor", fields: [authorId], references: [id])
+  authorId  String   @db.Uuid
+
+  // relations — Comment.reacts ↔ React where React.commentId = Comment.id
+  reacts React[]    @relation("CommentReacts")
+  replies Comment[] @relation("CommentReplies")
+
+  parentCommentId String? @db.Uuid
+  parentComment   Comment? @relation("CommentReplies", fields: [parentCommentId], references: [id], onDelete: Cascade)
+
+  repliedToId String? @db.Uuid
+  repliedTo   User?    @relation("CommentRepliedTos", fields: [repliedToId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId])
+  @@index([authorId])
+}
+
+model React {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  // Post likes — filtered by postId
+  postId String? @db.Uuid
+  post   Post?   @relation("PostReacts", fields: [postId], references: [id], onDelete: Cascade)
+
+  // Comment likes — filtered by commentId
+  commentId String?  @db.Uuid
+  comment   Comment? @relation("CommentReacts", fields: [commentId], references: [id], onDelete: Cascade)
+
+  user   User   @relation("UserReacts", fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.Uuid
+
+  // keep isActive to track if the react is active or not
+  isActive Boolean   @default(true)
+  type     ReactType @default(LIKE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId, userId])
+  @@index([commentId, userId])
+  @@unique([postId, userId])
+  @@unique([commentId, userId])
+}
+
+
+enum PostStatus {
+  PUBLIC
+  PRIVATE
+}
+
+enum ReactType {
+  LIKE
+  LOVE
+  HAHA
+  WOW
+  SAD
+  ANGRY
+  CRY
+  CARE
+}
+
+ 
