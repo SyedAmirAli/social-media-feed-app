@@ -6,7 +6,7 @@ export const DATABASE_URL =
 
 export const PRISMA_API_KEY = process.env["PRISMA_API_KEY"];
 
-export const R2_TOKEN_VALUE = process.env["R2_TOKEN_VALUE"] || "cfat_KoppyyLQXEJtAO0sjxYdguRxKD5bdxt6rxHBVZVX7653f74d";
+export const R2_TOKEN_VALUE = process.env["R2_TOKEN_VALUE"];
 
 export const R2_ACCESS_KEY_ID = process.env["R2_ACCESS_KEY_ID"] || "6cc9d69b758c9f17ca7f356b2d760a72";
 
