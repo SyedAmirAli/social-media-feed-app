@@ -30,14 +30,14 @@ This guide walks a new developer from a fresh clone to a running local app with 
 
 Install these before continuing:
 
-| Tool | Version / notes |
-|------|-----------------|
-| **Node.js** | 20+ recommended (18+ minimum) |
-| **Yarn** | Classic v1 (`yarn -v` → `1.x`). This repo ships a `yarn.lock`. |
-| **TypeScript** | Pinned to **5.9.x** in `package.json`. Next.js 16.2 does not yet support TypeScript 7 for `next build` (missing JS compiler API). |
-| **PostgreSQL** | Local install **or** a hosted instance (Neon, Supabase, Prisma Postgres, Railway, etc.) |
-| **Cloudflare account** | For R2 object storage (avatars & post images) |
-| **Git** | To clone the repository |
+| Tool                   | Version / notes                                                                                                                   |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Node.js**            | 20+ recommended (18+ minimum)                                                                                                     |
+| **Yarn**               | Classic v1 (`yarn -v` → `1.x`). This repo ships a `yarn.lock`.                                                                    |
+| **TypeScript**         | Pinned to **5.9.x** in `package.json`. Next.js 16.2 does not yet support TypeScript 7 for `next build` (missing JS compiler API). |
+| **PostgreSQL**         | Local install **or** a hosted instance (Neon, Supabase, Prisma Postgres, Railway, etc.)                                           |
+| **Cloudflare account** | For R2 object storage (avatars & post images)                                                                                     |
+| **Git**                | To clone the repository                                                                                                           |
 
 Optional but helpful:
 
@@ -90,19 +90,19 @@ Edit `.env` and replace every placeholder with real values. Comments in `.env.ex
 
 ### 4.2 Variable reference
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `DATABASE_URL` | Yes | PostgreSQL connection string for Prisma CLI and runtime |
-| `PRISMA_API_KEY` | No | Only if you use Prisma Data Platform / Prisma Postgres API features |
-| `R2_TOKEN_VALUE` | No* | Cloudflare API token (optional; S3 path uses access keys below) |
-| `R2_ACCESS_KEY_ID` | Yes | R2 S3 Access Key ID |
-| `R2_SECRET_ACCESS_KEY` | Yes | R2 S3 Secret Access Key |
-| `R2_ENDPOINT` | Yes | `https://<ACCOUNT_ID>.r2.cloudflarestorage.com` |
-| `R2_BUCKET` | Yes | R2 bucket name |
-| `R2_BUCKET_PREFIX` | Yes | Folder prefix inside the bucket (e.g. `appifylab`) |
-| `ASSETS_BASE_URL` | Yes | Public origin that serves R2 files in the browser |
-| `JWT_SECRET` | Yes | Secret for signing/verifying auth JWTs |
-| `JWT_EXPIRATION` | Yes | JWT lifetime (default `30d`) |
+| Variable               | Required | Purpose                                                             |
+| ---------------------- | -------- | ------------------------------------------------------------------- |
+| `DATABASE_URL`         | Yes      | PostgreSQL connection string for Prisma CLI and runtime             |
+| `PRISMA_API_KEY`       | No       | Only if you use Prisma Data Platform / Prisma Postgres API features |
+| `R2_TOKEN_VALUE`       | No\*     | Cloudflare API token (optional; S3 path uses access keys below)     |
+| `R2_ACCESS_KEY_ID`     | Yes      | R2 S3 Access Key ID                                                 |
+| `R2_SECRET_ACCESS_KEY` | Yes      | R2 S3 Secret Access Key                                             |
+| `R2_ENDPOINT`          | Yes      | `https://<ACCOUNT_ID>.r2.cloudflarestorage.com`                     |
+| `R2_BUCKET`            | Yes      | R2 bucket name                                                      |
+| `R2_BUCKET_PREFIX`     | Yes      | Folder prefix inside the bucket (e.g. `appifylab`)                  |
+| `ASSETS_BASE_URL`      | Yes      | Public origin that serves R2 files in the browser                   |
+| `JWT_SECRET`           | Yes      | Secret for signing/verifying auth JWTs                              |
+| `JWT_EXPIRATION`       | Yes      | JWT lifetime (default `30d`)                                        |
 
 \*Not required for the app’s `Bucket` S3 client; keep it if your team uses Cloudflare API automation.
 
@@ -160,8 +160,8 @@ Uploads (avatars, post images) go through the S3-compatible R2 API implemented i
 1. R2 → **Manage R2 API Tokens** → **Create API token**.
 2. Permissions: **Object Read & Write** (account-wide or limited to your bucket).
 3. Create the token and copy:
-   - **Access Key ID** → `R2_ACCESS_KEY_ID`
-   - **Secret Access Key** → `R2_SECRET_ACCESS_KEY` (shown once)
+    - **Access Key ID** → `R2_ACCESS_KEY_ID`
+    - **Secret Access Key** → `R2_SECRET_ACCESS_KEY` (shown once)
 
 ### 6.3 Endpoint
 
@@ -216,12 +216,12 @@ This app primarily uploads from Next.js API routes (server-side). If you later u
 
 ## 7. Prisma configuration
 
-| Piece | Location | Role |
-|-------|----------|------|
-| Schema | `prisma/schema.prisma` | Models (`User`, `Post`, `Comment`, `React`, …) |
-| Config | `prisma.config.ts` | Datasource URL, migrations path, seed command |
-| Migrations | `prisma/migrations/` | SQL history applied to your DB |
-| Generated client | `prisma/generated/` | Output of `prisma generate` (gitignored) |
+| Piece            | Location               | Role                                           |
+| ---------------- | ---------------------- | ---------------------------------------------- |
+| Schema           | `prisma/schema.prisma` | Models (`User`, `Post`, `Comment`, `React`, …) |
+| Config           | `prisma.config.ts`     | Datasource URL, migrations path, seed command  |
+| Migrations       | `prisma/migrations/`   | SQL history applied to your DB                 |
+| Generated client | `prisma/generated/`    | Output of `prisma generate` (gitignored)       |
 
 `prisma.config.ts` (summary):
 
@@ -263,12 +263,12 @@ Do not instantiate `PrismaClient` elsewhere unless you have a strong reason (see
 
 Client-side and SSR data fetching use **TanStack Query v5**.
 
-| Piece | Location |
-|-------|----------|
-| Query client factory | `src/lib/query-client.ts` |
-| App provider | `src/components/Providers.tsx` |
-| Root wiring | `src/app/layout.tsx` → `<Providers>` |
-| SSR example | `src/app/(public)/page.tsx` (`prefetchInfiniteQuery` + `HydrationBoundary`) |
+| Piece                | Location                                                                    |
+| -------------------- | --------------------------------------------------------------------------- |
+| Query client factory | `src/lib/query-client.ts`                                                   |
+| App provider         | `src/components/Providers.tsx`                                              |
+| Root wiring          | `src/app/layout.tsx` → `<Providers>`                                        |
+| SSR example          | `src/app/(public)/page.tsx` (`prefetchInfiniteQuery` + `HydrationBoundary`) |
 
 ### Behavior (already configured)
 
@@ -343,17 +343,17 @@ yarn start
 
 ## 13. Useful scripts
 
-| Script | Command | Description |
-|--------|---------|-------------|
-| Dev server | `yarn dev` | Next.js development server |
-| Production build | `yarn build` | Create production build |
-| Production start | `yarn start` | Serve production build |
-| Lint | `yarn lint` | ESLint |
-| Prisma generate | `yarn db:generate` | Generate client → `prisma/generated` |
-| Migrate | `yarn db:migrate` | `prisma migrate dev` |
-| Seed | `yarn db:seed` | Run seed script |
-| Studio | `yarn db:studio` | Prisma Studio GUI |
-| DB verify | `yarn db:verify` | Quick connection / user count check |
+| Script           | Command            | Description                          |
+| ---------------- | ------------------ | ------------------------------------ |
+| Dev server       | `yarn dev`         | Next.js development server           |
+| Production build | `yarn build`       | Create production build              |
+| Production start | `yarn start`       | Serve production build               |
+| Lint             | `yarn lint`        | ESLint                               |
+| Prisma generate  | `yarn db:generate` | Generate client → `prisma/generated` |
+| Migrate          | `yarn db:migrate`  | `prisma migrate dev`                 |
+| Seed             | `yarn db:seed`     | Run seed script                      |
+| Studio           | `yarn db:studio`   | Prisma Studio GUI                    |
+| DB verify        | `yarn db:verify`   | Quick connection / user count check  |
 
 ---
 
@@ -445,3 +445,24 @@ yarn dev
 ```
 
 Then register at `/auth/registration` and use the feed at `/`.
+
+---
+
+## Notes & Future Improvements
+
+This assignment has been completed successfully. However, due to time constraints, there are several improvements that I wasn't able to implement.
+
+As a professional software developer, I had to complete this assignment alongside my regular work responsibilities. Additionally, the assignment placed significant restrictions on AI-assisted development, which meant that most of the implementation had to be done manually. As a result, I prioritized delivering a complete, functional, and maintainable solution within the available time.
+
+If more time had been available, I would have considered implementing several additional optimizations and enhancements, including:
+
+- Using cached pagination for the social feed to improve performance.
+- Leveraging Next.js fetch caching and revalidation strategies where appropriate.
+- Fetching comments separately instead of loading them together with every post to reduce unnecessary data transfer.
+- Loading replies on demand for individual comments instead of retrieving all replies upfront.
+- Using WebSockets (or a similar real-time solution) to update comments and reactions instantly without requiring page refreshes.
+- Applying additional performance optimizations, caching strategies, and scalability improvements across the application.
+
+These were conscious architectural considerations rather than overlooked issues. Given the project timeline and external constraints, I chose to focus on delivering a stable, well-structured implementation that satisfies the assignment requirements.
+
+I hope reviewers will consider these trade-offs while evaluating the project. Many of these enhancements are incremental improvements that can be added without requiring significant architectural changes.
