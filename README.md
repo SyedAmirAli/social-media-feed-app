@@ -4,6 +4,8 @@ Next.js social feed with PostgreSQL (Prisma), Cloudflare R2 uploads, JWT auth, a
 
 This guide walks a new developer from a fresh clone to a running local app with no extra tribal knowledge.
 
+**What we built & why:** see [docs/BUILD_SUMMARY.md](docs/BUILD_SUMMARY.md) (features, tech stack, architecture decisions).
+
 ---
 
 ## Table of contents
