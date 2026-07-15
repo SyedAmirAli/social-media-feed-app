@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { IS_PRODUCTION } from "@/config/dotenv";
+import { authCookieOptions } from "@/lib/auth/cookie";
 import Hash from "@/lib/hash";
 import JWT from "@/lib/jwt";
 import { prisma } from "@/lib/prisma";
@@ -87,13 +87,11 @@ export async function POST(request: Request) {
             { status: 201 },
         );
 
-        response.cookies.set("Authorization", `Bearer ${token}`, {
-            httpOnly: true,
-            secure: IS_PRODUCTION,
-            sameSite: "lax",
-            path: "/",
-            maxAge,
-        });
+        response.cookies.set(
+            "Authorization",
+            `Bearer ${token}`,
+            authCookieOptions(request, { maxAge }),
+        );
 
         return response;
     } catch (error) {
